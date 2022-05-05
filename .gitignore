@@ -3,6 +3,16 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# Mikel's list
+.DS_Store
+udemy_ml_deployment
+data/house-prices-advanced-regression-techniques
+Amershi_SWE_ML_Microsoft_2019.pdf
+Breck_ML_Test_Score_Google_2017.pdf
+.ipynb_checkpoints
+Troubleshooting.pdf
+docker_*
+
 # C extensions
 *.so
 
