@@ -8,9 +8,8 @@ which contains the companion code of the Udemy course [Deployment of Machine Lea
 
 The guide or notes for my future self done after following the course are in: `./ML_Deployment_Guide.md`.
 
-## Contents of the Repository
+## Notes on the Contents of the Repository
 
-- Code folders... TBD
 - Presentations: provided as a Dropbox download link, located in `./udemy_ml_deployment/deployment_of_ML_presentations`; but not committed.
 - Datasets: downloaded from [kaggle](www.kaggle.com): [House Prices - Advanced Regression Techniques](https://www.kaggle.com/c/house-prices-advanced-regression-techniques/data); located in `./data/house-prices-advanced-regression-techniques`; but not committed.
 
@@ -27,10 +26,19 @@ The guide or notes for my future self done after following the course are in: `.
 
 ## How to Start?
 
-Continue in `./ML_Deployment_Guide.md` for the detailed guide/notes.
+Continue in [`./ML_Deployment_Guide.md`](ML_Deployment_Guide.md) for the detailed guide/notes.
 
-## Example
+## Relevant Links
 
-Check this example deployment:
+- Check this example deployment: [census_model_deployment_fastapi](https://github.com/mxagar/census_model_deployment_fastapi)
+- Check my personal notes on the [Udacity MLOps](https://www.udacity.com/course/machine-learning-dev-ops-engineer-nanodegree--nd0821) nanodegree: [mlops_udacity](https://github.com/mxagar/mlops_udacity); example and exercise repository related to the topic of deployment: [mlops-udacity-deployment-demos](https://github.com/mxagar/mlops-udacity-deployment-demos).
+- My guide on CI/DC: [cicd_guide](https://github.com/mxagar/cicd_guide)
+- My boilerplate for reproducible ML pipelines using [MLflow](https://www.mlflow.org/) and [Weights & Biases](https://wandb.ai/site): [music_genre_classification](https://github.com/mxagar/music_genre_classification).
+- A very [simple Heroku deployment](https://github.com/mxagar/data_science_python_tools/tree/main/19_NeuralNetworks_Keras/19_11_Keras_Deployment) with the Iris dataset and using Flask as API engine.
+- Notes on how to transform research code into production-level packages: [customer_churn_production](https://github.com/mxagar/customer_churn_production).
+- My summary of data processing and modeling techniques: [eda_fe_summary](https://github.com/mxagar/eda_fe_summary).
 
-[census_model_deployment_fastapi](https://github.com/mxagar/census_model_deployment_fastapi)
+## Authorship
+
+Notes by Mikel Sagardia, 2022.  
+No guarantees.
