@@ -29,9 +29,8 @@ The guide or notes for my future self done after following the course are in: `.
 
 Continue in `./ML_Deployment_Guide.md` for the detailed guide/notes.
 
-## Vanilla Deployment
+## Example
 
-I am working on a vanilla deployment repository which applies the things learned in the course toa simple use case:
+Check this example deployment:
 
-[ml_deployment_guide](https://github.com/mxagar/ml_deployment_guide)
-
+[census_model_deployment_fastapi](https://github.com/mxagar/census_model_deployment_fastapi)

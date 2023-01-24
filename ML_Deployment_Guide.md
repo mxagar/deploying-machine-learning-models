@@ -27,7 +27,8 @@ I am working on a vanilla deployment repository which applies the things learned
 5. Serving and Deploying the Model via REST API - FastAPI
 6. Continuous Integration and Deployment Pipelines - CicleCI
 7. Deploying the ML API with Containers
-8. Deploying to IaaS (AWS ECS)
+8. Differential Tests
+9. Deploying to IaaS (AWS ECS)
 
 1. Overview of Model Deployment
    - 1.1 Reproducibility
@@ -120,7 +121,8 @@ I am working on a vanilla deployment repository which applies the things learned
   - 5.11 Further Readings
 6. Continuous Integration and Deployment Pipelines - Circle CI
 7. Deploying the ML API with Containers
-8. Deploying to IaaS (AWS ECS)
+8. Differential Tests
+9. Deploying to IaaS (AWS ECS)
 
 ## 1. Overview of Model Deployment
 
@@ -252,7 +254,7 @@ New points:
 - Use version control not just for code, also for databases; check available SW: versionSQL, DBmaestro, etc.
 - The longer it takes to reproduce a model, the less reproducible it is.
 - Try methods to share environments:
-  - Conainers
+  - Containers
   - Virtual machines
   - Hosted environments: Google Collab, Amazon SageMaker, Kaggle Kernels, etc.
 
@@ -888,7 +890,7 @@ class TransformerMixin:
 class MeanImputer(TransformerMixin):
     def __init__(self, variables):
         self.variables = variables
-    fit(self, X, y=None):
+    def fit(self, X, y=None):
         self.imputer_dict_ = X[self.variables].mean().to_dict()
         return self
     def transform(self, X):
@@ -2280,11 +2282,13 @@ Technically, our application is the model itself at the moment. Therefore, we'r 
 ### 5.3 FastAPI: Intoduction
 
 [FastAPI](https://fastapi.tiangolo.com), compared to Flask, has some advantages:
+
 - It uses python type hints for automatic validation
-- Automatic documentation
-- Dependency injection
+- It generated automatic documentation
+- It uses async: asynchronous functions
+- It enables dependency injection
 - It's very fast
-- Excellent documentation
+- IIt has excellent documentation
 
 #### Installation
 
@@ -2318,12 +2322,20 @@ app = FastAPI()
 @app.get("/")
 async def root():
     return {"message": "Hello World"}
+
+@app.get("/square")
+async def square(num: int):
+    result num ** 2
+    return {"squared": result}
+
 ```
 
 ```bash
 uvicorn main:app --reload
-# Open browser: localhost:8000
+# Open browser: http://localhost:8000
 # We get: {"message":"Hello World"}
+# http://localhost:8000/square?num=2
+# We get: {"squared":4}
 ```
 
 ### 5.4 Folder Structure & API Endpoint Definitions
@@ -2752,5 +2764,7 @@ release-heroku: heroku-login
 - [Makefiles](https://opensource.com/article/18/8/what-how-makefile)
 - [Heroku Dyno Documentation](https://devcenter.heroku.com/articles/dynos)
 
-## 8. Deploying to IaaS (AWS ECS)
+## 8. Differential Tests
+
+## 9. Deploying to IaaS (AWS ECS)
 
