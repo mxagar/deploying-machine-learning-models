@@ -8,15 +8,19 @@ which contains the companion code of the Udemy course [Deployment of Machine Lea
 
 ## Contents of the Repository
 
-- Code folders... TBD
+- Folders: "section-" folders follow the course sections.
 - Presentations: provided as a Dropbox download link, located in `./udemy_ml_deployment/deployment_of_ML_presentations`; but not committed.
 - Datasets: downloaded from [kaggle](www.kaggle.com): [House Prices - Advanced Regression Techniques](https://www.kaggle.com/c/house-prices-advanced-regression-techniques/data); located in `./data/house-prices-advanced-regression-techniques`; but not committed.
 
-## Vanilla Deployment
+## Relevant Links, Forefront
 
-I am working on a vanilla deployment repository which applies the things learned in the course toa simple use case:
-
-[ml_deployment_guide](https://github.com/mxagar/ml_deployment_guide)
+- Check this example deployment: [census_model_deployment_fastapi](https://github.com/mxagar/census_model_deployment_fastapi)
+- Check my personal notes on the [Udacity MLOps](https://www.udacity.com/course/machine-learning-dev-ops-engineer-nanodegree--nd0821) nanodegree: [mlops_udacity](https://github.com/mxagar/mlops_udacity); example and exercise repository related to the topic of deployment: [mlops-udacity-deployment-demos](https://github.com/mxagar/mlops-udacity-deployment-demos).
+- My guide on CI/DC: [cicd_guide](https://github.com/mxagar/cicd_guide)
+- My boilerplate for reproducible ML pipelines using [MLflow](https://www.mlflow.org/) and [Weights & Biases](https://wandb.ai/site): [music_genre_classification](https://github.com/mxagar/music_genre_classification).
+- A very [simple Heroku deployment](https://github.com/mxagar/data_science_python_tools/tree/main/19_NeuralNetworks_Keras/19_11_Keras_Deployment) with the Iris dataset and using Flask as API engine.
+- Notes on how to transform research code into production-level packages: [customer_churn_production](https://github.com/mxagar/customer_churn_production).
+- My summary of data processing and modeling techniques: [eda_fe_summary](https://github.com/mxagar/eda_fe_summary).
 
 ## Overview of the Contents of the Course
 
@@ -1363,7 +1367,7 @@ Example:
 
 ```bash
 # Go to folder where tox.ini and setup.py of the package are locted
-cd ~/git_repositories/ml_deployment_guide/02_Production_Model_Package
+cd ~/git_repositories/ml_deployment_guide/section-05-production-model-package
 # Run all the environments defined in envlist from tox.ini
 tox
 # We get all the artefacts defined in the package in their respective folders
@@ -1673,7 +1677,7 @@ It is a good practice to for testing functions to a `Given-When-Then` structure 
 - `When` executes the functionality, which can return a value
 - `Then` checks whether the returned value is correct
 
-Example: `./02_Production_Model_Package/sandbox_tests`
+Example: `./section-05-production-model-package/sandbox_tests`
 - file `my_module.py`
 - file `test_my_module.py`
 
@@ -1704,7 +1708,7 @@ def test_square_return_value_type_is_int():
 Now, we run on the Terminal
 
 ```bash
-cd .../02_Production_Model_Package/sandbox_tests
+cd .../section-05-production-model-package/sandbox_tests
 pytest
 # 2 successful tests
 ```
@@ -1713,7 +1717,7 @@ pytest
 
 Fixtures are functions defined as decorators which return objects used in tests. The idea is that test functions take as arguments these fixture functions, which return variables used in the test functions. By convention, fixtures are defined in a `conftest.py` file
 
-Example: `./02_Production_Model_Package/sandbox_tests`; all the above files, plus:
+Example: `./section-05-production-model-package/sandbox_tests`; all the above files, plus:
 - file `conftest.py`
 - file `test_my_module_with_fitures.pwy`
 
@@ -1750,7 +1754,7 @@ def test_square_gives_correct_value(input_value):
 Now, we run on the Terminal:
 
 ```bash
-cd .../02_Production_Model_Package/sandbox_tests
+cd .../section-05-production-model-package/sandbox_tests
 pytest
 # 3 successful tests: 2 regular, 1 with fixtures
 ```
@@ -1759,7 +1763,7 @@ pytest
 
 Parametrization is achieved with decorartors, too. Instead of using fixtures, we can parametrize the test function, i.e., we define different values to be used by it; that parameter is passed as argument. As an effect, instead of running the test once, we run it so many times are number of parameter values. That is helpful to test edge cases, such as values like `0, NA, null`, etc.
 
-Example: `./02_Production_Model_Package/sandbox_tests`; all the above files, plus:
+Example: `./section-05-production-model-package/sandbox_tests`; all the above files, plus:
 - file `test_my_module_parametrized.py`
 
 ```python
@@ -1796,7 +1800,7 @@ def test_square_return_value_type_is_int(inputs):
 Now, we run on the Terminal:
 
 ```bash
-cd .../02_Production_Model_Package/sandbox_tests
+cd .../section-05-production-model-package/sandbox_tests
 pytest
 # 6 successful tests: 2 regular, 1 with fixtures, 3 parametrized
 ```
@@ -1859,7 +1863,7 @@ def test_temporal_variable_transformer(sample_input_data):
 To test our pipeline, ans specificly the feature engineering transformations, we run:
 
 ```bash
-cd ~/git_repositories/ml_deployment_guide/02_Production_Model_Package
+cd ~/git_repositories/ml_deployment_guide/section-05-production-model-package
 # The first time, the dependdencies are downloaded & the model trained
 tox -e test_package
 # 2 successful passes: test_temporal_variable_transformer, test_make_prediction
@@ -2156,7 +2160,7 @@ python3 -m pip install --upgrade build
 After that, we go to our package folder and build it:
 
 ```bash
-cd 02_Production_Model_Package
+cd section-05-production-model-package
 python3 -m build
 ```
 
@@ -2225,7 +2229,7 @@ All these tools ensure a minimum code quality and standard; for instance:
 
 The folder 
 
-`02_Production_Model_Package/titanic-assignment-package`
+`section-05-production-model-package/titanic-assignment-package`
 
 contains the application of the packaging techniques explained in this section to the Titanic dataset prepared in the research and development envioronment
 
@@ -2249,7 +2253,7 @@ Interesting links:
 Execute the following to get the API running locally:
 
 ```bash
-cd 03_Model_Serving_FastAPI/
+cd section-06-model-serving-api/
 tox -e run # the first time it will take longer
 # Open browser: localhost:8001
 ```
@@ -2342,7 +2346,7 @@ uvicorn main:app --reload
 
 The API is contained in
 
-`03_Model_Serving_FastAPI/house-prices-api/`,
+`section-06-model-serving-api/house-prices-api/`,
 
 where we have the following folder structure:
 
@@ -2373,7 +2377,7 @@ In the following, comments on the different files are done.
 
 #### Requirements
 
-`03_Model_Serving_FastAPI/house-prices-api/requirements.txt`:
+`section-06-model-serving-api/house-prices-api/requirements.txt`:
 
 ```
 uvicorn>=0.11.3,<0.12.0
@@ -2459,7 +2463,7 @@ The testing file `app/tests/test_api.py` uses the fixtures defined in `app/tests
 To try it:
 
 ```bash
-cd 03_Model_Serving_FastAPI/house-prices-api
+cd section-06-model-serving-api/house-prices-api
 tox -e test_app
 ```
 
@@ -2553,7 +2557,7 @@ The deployment to heroku consists in uploading our REST API app to heroku so tha
 - Create account on heroku: [Heroku](https://www.heroku.com)
 - Install the Heroku CLI: [The Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
 
-**Second**, we need to have two files in `03_Model_Serving_FastAPI/house-prices-api` with this content (already provided in the course):
+**Second**, we need to have two files in `section-06-model-serving-api/house-prices-api` with this content (already provided in the course):
 - `Procfile`: `web: uvicorn app.main:app --host 0.0.0.0 --port $PORT`
   - This file executes the `app` object from `app/main.py`
   - Thus, no `__main__()` is run, but instead the `app` instance defined in the module
@@ -2565,7 +2569,7 @@ The deployment to heroku consists in uploading our REST API app to heroku so tha
 **Third**, we run the following commands:
 
 ```bash
-cd 03_Model_Serving_FastAPI
+cd section-06-model-serving-api
 # Check that we have installed the heroku CLI correctly
 heroku --version
 # Log in: The browser is launched & we log in
@@ -2578,7 +2582,7 @@ heroku create
 # We are in a git repo inside a folder, thus we need to use a special command
 # The command is to just push the specified (sub-)directory
 # We should see how the dependencies are installed, etc.
-git subtree push --prefix 03_Model_Serving_FastAPI/house-prices-api heroku main
+git subtree push --prefix section-06-model-serving-api/house-prices-api heroku main
 # If we Ctrl+C nothing happens
 # Now, the app is up and running! Open the browser and go to:
 # https://fathomless-shelf-89809.herokuapp.com/
@@ -2636,6 +2640,11 @@ Another service used is [Gemfury](https://gemfury.com): a hosted repository for 
 
 **IMPORTANT**: This section is a complete mess. The instructor mentions very fast key concepts -- they code (the YAML configuration file for Cicle CI) is extensive, but only some sections are explained. There are some overview slides, but the practical code is barely touched. Therefore, I won't extend here. The main idea is that all the processes we have done so far with `tox` and the `heroku` deployment are automated using Cicle CI. An important aspect is also the privacy: private packages are used, to show how that would work in companies.
 
+**IMPORTANT**: I use Github/Gitlab for continuous integration. You can check these links for more information and examples:
+
+- Census Model Deployment to Heroku Using FastAPI: [census_model_deployment_fastapi](https://github.com/mxagar/census_model_deployment_fastapi)
+- CI/CI Pipelines with Gitlab and Github: [cicd_guide](https://github.com/mxagar/cicd_guide)
+
 ## 7. Deploying the ML API with Containers
 
 I have created several guides on Docker in the past which summarize how to use docker: [templates/docker](https://github.com/mxagar/templates/tree/master/docker_swarm_kubernetes). My personal files are:
@@ -2649,11 +2658,11 @@ I have created several guides on Docker in the past which summarize how to use d
 Some concepts we need to know:
 
 - Motivation: standardization in deployment to anywhere, universal maintainability, isolation between containerized modules
-- Images: layers
+- Images: built on layers
 - Containers: instantiated images
 - Docker vs Virtual Machines; containers use the host system kernel, so they need much less resources
-- The Dockerfile
-- `docker build`, `docker run`
+- The Dockerfile: common commands
+- `docker build` (build container from image), `docker run` (execute container)
 - Registries: Dockerhub
 
 When deploying our application to heroku as in Section 5, we upload/push our API code to the platform. There, an image is created and instantiated in a container that runs our application. We don't need to take care of the image, only our code.
@@ -2669,7 +2678,7 @@ In the following, the folder structure and the three most important files are sh
 
 The folder structure is basically the same as in the previous heroku deployment, but with the three new files.
 
-`cd 05_Dockerization/`
+`cd section-08-deploying-with-containers/`
 
 ```
 .
