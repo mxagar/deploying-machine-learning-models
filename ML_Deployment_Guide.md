@@ -2726,33 +2726,95 @@ packages/regression_model
 `Dockerfile`:
 
 ```dockerfile
-FROM python:3.9.4
+# We can modify image/python version with
+# docker build --build-arg IMAGE=python:3.8
+# Otherwise, default: python:3.9.4
+ARG IMAGE=python:3.9.4
+FROM $IMAGE
 
 # Create the user that will run the app
 RUN adduser --disabled-password --gecos '' ml-api-user
 
+# Create directory IN container and change to it
 WORKDIR /opt/house-prices-api
 
-ARG PIP_EXTRA_INDEX_URL
-
-# Install requirements, including from Gemfury
+# Copy folder contents (unless the ones from .dockerignore) TO container
 ADD ./house-prices-api /opt/house-prices-api/
+# Install requirements
 RUN pip install --upgrade pip
 RUN pip install -r /opt/house-prices-api/requirements.txt
+RUN pip install .
 
+# Change permissions
 RUN chmod +x /opt/house-prices-api/run.sh
 RUN chown -R ml-api-user:ml-api-user ./
 
+# Change user to the one created
 USER ml-api-user
 
+# Expose port
 EXPOSE 8001
 
+# Run web server, started by run.sh
 CMD ["bash", "./run.sh"]
 ```
 
-`Makefile`:
+`run.sh`:
 
-```make
+```bash
+uvicorn app.main:app --host 0.0.0.0 --port $PORT
+```
+
+#### Build and Run
+
+```bash
+# Build the Dockerfile to create the image
+# docker build -t <image_name[:version]> <path/to/Dockerfile>
+docker build -t housing_prices:latest .
+ 
+# Check the image is there: watch the size (e.g., ~1GB)
+docker image ls
+
+# Run the container locally from a built image
+# Recall to: forward ports (-p) and pass PORT env variable (-e)
+# Optional: -d to detach/get the shell back, --name if we want to choose conatiner name (else, one randomly chosen)
+docker run -d -p 8001:8001 -e PORT=8001 --name housing_prices_app housing_prices:latest
+
+# Check the API locally: open the browser
+#   http://localhost:8001
+#   Use the web API
+ 
+# Check the running containers: check the name/id of our container,
+# e.g., housing_prices_app
+docker container ls
+docker ps
+
+# Get a terminal into the container: in general, BAD practice
+# docker exec -it <id|name> sh
+docker exec -it housing_prices_app sh
+# (we get inside)
+cd /opt/house-prices-api
+ls
+exit
+
+# Stop container and remove it (erase all files in it, etc.)
+# docker stop <id/name>
+# docker rm <id/name>
+docker stop housing_prices_app
+docker rm housing_prices_app
+```
+
+### 7.2 Deploying the Dockerized Application
+
+Continuous deployment is achieved with CircleCI, which is not included in my notes.
+
+Instead, I have used Github Actions.
+
+The instructor uses a `Makefile` which defined all basic steps needed to build and publish the docker image to the required registry. This could be easily modified to work within a Github Actions workflow. However, note that we need to use an API key or password; that should be accomplished with a Github Actions secret?
+
+The content of the `Makefile`:
+
+```makefile
 heroku-login:
   HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:login
 
@@ -2768,12 +2830,32 @@ release-heroku: heroku-login
 .PHONY: heroku-login build-ml-api-heroku push-ml-api-heroku
 ```
 
-### 7.X Further Reading
+These `Makefile` commands are run by the CircleCI workflow.
+
+### 7.3 Further Reading
 
 - [Makefiles](https://opensource.com/article/18/8/what-how-makefile)
 - [Heroku Dyno Documentation](https://devcenter.heroku.com/articles/dynos)
+- [Heroku: Deploying with Docker](https://devcenter.heroku.com/categories/deploying-with-docker)
+- [Heroku: Container Registry & Runtime (Docker Deploys)](https://devcenter.heroku.com/articles/container-registry-and-runtime)
 
 ## 8. Differential Tests
+
+Differential tests = back-to-back tests: we test whether the deployed model has very different outcomes compared to a previous version; to that end, we need to have a test dataset (or a slice) which is scored every time and from which we save the outcomes.
+
+Differential tests are somehow related to model drift.
+
+The way it is implemented in the course:
+
+- A pytest test file is created with one test in it: `test_model_prediction_differential()`
+- The test is maked with the decorator: `@pytest.mark.differential`
+- In the CI, we specify not to call the differential test in the pytest call.
+- In test test function:
+  - We load the results of a previous model; that requires having a `capture_test()` function before to collect them.
+  - We pass the same dataset to the current model
+  - We compare both results:
+    - Deterministally: Size
+    - Non-deterministically: math.isclose(), T-test, etc.
 
 ## 9. Deploying to IaaS (AWS ECS)
 
