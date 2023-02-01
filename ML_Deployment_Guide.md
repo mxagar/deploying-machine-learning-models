@@ -2804,7 +2804,7 @@ docker stop housing_prices_app
 docker rm housing_prices_app
 ```
 
-### 7.2 Deploying the Dockerized Application
+### 7.2 Deploying the Dockerized Application: CircleCI
 
 Continuous deployment is achieved with CircleCI, which is not included in my notes.
 
@@ -2832,7 +2832,15 @@ release-heroku: heroku-login
 
 These `Makefile` commands are run by the CircleCI workflow.
 
-### 7.3 Further Reading
+### 7.3 Deploying the Dockerized Application to Heroku
+
+Refer to [`MLOpsND_Deployment.md`](https://github.com/mxagar/mlops_udacity/blob/main/03_Deployment/MLOpsND_Deployment.md#7-excurs-dockerization).
+
+There is a section in there in which I explain how a container deployment can be done into Heroku. As example, the following repository is used:
+
+[census_model_deployment_fastapi](https://github.com/mxagar/census_model_deployment_fastapi)
+
+### 7.4 Further Reading
 
 - [Makefiles](https://opensource.com/article/18/8/what-how-makefile)
 - [Heroku Dyno Documentation](https://devcenter.heroku.com/articles/dynos)
@@ -2858,4 +2866,12 @@ The way it is implemented in the course:
     - Non-deterministically: math.isclose(), T-test, etc.
 
 ## 9. Deploying to IaaS (AWS ECS)
+
+ECS = Elastic Container Service.
+
+Refer to [`MLOpsND_Deployment.md`](https://github.com/mxagar/mlops_udacity/blob/main/03_Deployment/MLOpsND_Deployment.md#8-excurs-deployment-to-aws-ecs).
+
+There is a section in there in which I explain how a container deployment can be done into AWS ESC. As example, the following repository is used:
+
+[census_model_deployment_fastapi](https://github.com/mxagar/census_model_deployment_fastapi)
 
