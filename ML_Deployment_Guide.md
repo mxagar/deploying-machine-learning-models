@@ -24,109 +24,100 @@ which contains the companion code of the Udemy course [Deployment of Machine Lea
 
 ## Overview of the Contents of the Course
 
-1. Overview of Model Deployment
-2. Machine Learning System Architecture
-3. Research Environment: Developing a Machine Learning Model
-4. Packaging the Model for Production
-5. Serving and Deploying the Model via REST API - FastAPI
-6. Continuous Integration and Deployment Pipelines - CicleCI
-7. Deploying the ML API with Containers
-8. Differential Tests
-9. Deploying to IaaS (AWS ECS)
+- [Machine Learning Model Deployment Guide](#machine-learning-model-deployment-guide)
+  - [Contents of the Repository](#contents-of-the-repository)
+  - [Relevant Links, Forefront](#relevant-links-forefront)
+  - [Overview of the Contents of the Course](#overview-of-the-contents-of-the-course)
+  - [1. Overview of Model Deployment](#1-overview-of-model-deployment)
+    - [1.1 Reproducibility](#11-reproducibility)
+      - [Data Ingestion](#data-ingestion)
+      - [Feature Engineering](#feature-engineering)
+      - [Training](#training)
+      - [Model Deployment / Integration of the Model to the Production Environment](#model-deployment--integration-of-the-model-to-the-production-environment)
+      - [Streamlining the Model Deployment with Open-Source Libraries](#streamlining-the-model-deployment-with-open-source-libraries)
+    - [1.2 Reading Articles](#12-reading-articles)
+  - [2. Machine Learning System Architecture](#2-machine-learning-system-architecture)
+    - [2.1 Challenges of ML Systems](#21-challenges-of-ml-systems)
+      - [Some Reading Links](#some-reading-links)
+    - [2.2 Key Principles for ML Systems](#22-key-principles-for-ml-systems)
+    - [2.3 Machine Learning System Architecture Approaches](#23-machine-learning-system-architecture-approaches)
+    - [2.4 Architecture Breakdown](#24-architecture-breakdown)
+  - [3. Research Environment: Developing a Machine Learning Model](#3-research-environment-developing-a-machine-learning-model)
+    - [3.1 Overview of Building the Pipeline](#31-overview-of-building-the-pipeline)
+    - [3.2 Feature Engineering](#32-feature-engineering)
+      - [3.2.1 Feature Engineering Techniques](#321-feature-engineering-techniques)
+    - [3.3 Feature Selection](#33-feature-selection)
+    - [3.4 Model Training and Evaluation](#34-model-training-and-evaluation)
+    - [3.5 Notebooks: Parts 1 \& 2 - First Version of the Research/Development Environment](#35-notebooks-parts-1--2---first-version-of-the-researchdevelopment-environment)
+      - [Part 1: First Version of the Research Environment](#part-1-first-version-of-the-research-environment)
+      - [Part 2: Assignment - Research Environment of the Titanic Dataset](#part-2-assignment---research-environment-of-the-titanic-dataset)
+    - [3.6 Streamlining the Research Environment](#36-streamlining-the-research-environment)
+      - [Scikit-Learn Transformers](#scikit-learn-transformers)
+      - [Other Important Libraries for Transformations](#other-important-libraries-for-transformations)
+    - [3.7 Feature Engineering with In-House Software: Custom Transformation Classes](#37-feature-engineering-with-in-house-software-custom-transformation-classes)
+      - [Example 1: `MeanImputer` class](#example-1-meanimputer-class)
+      - [Example 2: Inheritance](#example-2-inheritance)
+      - [Example 3: Inheritance with Scikit-Learn](#example-3-inheritance-with-scikit-learn)
+    - [3.8 Notebooks, Continued: Parts 3 \& 4 - Reasearch/Development Environment Streamlined with Open-Source Libraries, In-House Software, and Pipelines](#38-notebooks-continued-parts-3--4---reasearchdevelopment-environment-streamlined-with-open-source-libraries-in-house-software-and-pipelines)
+      - [Part 3: Feature Engineering with Open-Source Libraries: `06-feature-engineering-with-open-source.ipynb`](#part-3-feature-engineering-with-open-source-libraries-06-feature-engineering-with-open-sourceipynb)
+      - [Part 4: Feature Engineering with Open-Source Libraries, In-House Software, and Pipelines: `07-feature-engineering-pipeline.ipynb`](#part-4-feature-engineering-with-open-source-libraries-in-house-software-and-pipelines-07-feature-engineering-pipelineipynb)
+    - [3.9 Feature Selection: Should It Be Part of the Feature Engineering `Pipeline`?](#39-feature-selection-should-it-be-part-of-the-feature-engineering-pipeline)
+    - [3.10 Notebooks, Continued: Parts 5 \& 6 - Reasearch/Development Environment: Final Machine Learning Pipeline](#310-notebooks-continued-parts-5--6---reasearchdevelopment-environment-final-machine-learning-pipeline)
+      - [Part 5: Final Machine Learning Pipeline - `08-final-machine-learning-pipeline.ipynb`](#part-5-final-machine-learning-pipeline---08-final-machine-learning-pipelineipynb)
+      - [Part 6: Assignment - Research Environment Pipeline of the Titanic Dataset](#part-6-assignment---research-environment-pipeline-of-the-titanic-dataset)
+  - [4. Packaging the Model for Production](#4-packaging-the-model-for-production)
+    - [4.1 Structuring the Production Code](#41-structuring-the-production-code)
+      - [1. Conventions](#1-conventions)
+      - [2. Packaging Mandatory Files](#2-packaging-mandatory-files)
+      - [3. Software Engineering Best Practices](#3-software-engineering-best-practices)
+    - [4.2 Package Requirement Files](#42-package-requirement-files)
+      - [How to get `requirements.txt`](#how-to-get-requirementstxt)
+    - [4.3 Working with `tox`](#43-working-with-tox)
+      - [Comments on the syntax of the `tox.ini` file](#comments-on-the-syntax-of-the-toxini-file)
+      - [Issues with tox](#issues-with-tox)
+    - [4.4 Configuration](#44-configuration)
+    - [4.5 The Model Training Script \& Pipeline](#45-the-model-training-script--pipeline)
+    - [4.6 Pytest](#46-pytest)
+      - [Installation and Basic Usage](#installation-and-basic-usage)
+      - [Pytest Fixtures](#pytest-fixtures)
+      - [Pytest Parametrization](#pytest-parametrization)
+    - [4.7 Feature Engineering Code: Testing](#47-feature-engineering-code-testing)
+    - [4.8 Making Predictions with the Package](#48-making-predictions-with-the-package)
+    - [4.9 Making Predictions with the Package: Testing](#49-making-predictions-with-the-package-testing)
+    - [4.10 Building the Package](#410-building-the-package)
+      - [Building the Package](#building-the-package)
+      - [Personal Notes](#personal-notes)
+    - [4.11 Tooling](#411-tooling)
+    - [4.12 Further Readings](#412-further-readings)
+    - [4.13 Assignment: Titanic Dataset](#413-assignment-titanic-dataset)
+  - [5. Serving and Deploying the Model via REST API - FastAPI](#5-serving-and-deploying-the-model-via-rest-api---fastapi)
+    - [5.1 Running the API Locally](#51-running-the-api-locally)
+      - [Personal Note](#personal-note)
+    - [5.2 Architecture of the API](#52-architecture-of-the-api)
+    - [5.3 FastAPI: Intoduction](#53-fastapi-intoduction)
+      - [Installation](#installation)
+      - [How to Use It](#how-to-use-it)
+    - [5.4 Folder Structure \& API Endpoint Definitions](#54-folder-structure--api-endpoint-definitions)
+      - [Requirements](#requirements)
+      - [`app/`](#app)
+      - [Testing: `app/tests/`](#testing-apptests)
+    - [5.5 Using Schemas in the API](#55-using-schemas-in-the-api)
+    - [5.6 Logging](#56-logging)
+    - [5.7 The Uvicorn Web Server](#57-the-uvicorn-web-server)
+    - [5.8 Heroku and Platform as a Service (PaaS)](#58-heroku-and-platform-as-a-service-paas)
+    - [5.9 Deploying the Application to Heroku](#59-deploying-the-application-to-heroku)
+    - [5.10 Personal Notes](#510-personal-notes)
+    - [5.11 Further Readings](#511-further-readings)
+  - [6. Continuous Integration and Deployment Pipelines - Circle CI](#6-continuous-integration-and-deployment-pipelines---circle-ci)
+  - [7. Deploying the ML API with Containers](#7-deploying-the-ml-api-with-containers)
+    - [7.1 Folder Structure and Docker Configuration Files](#71-folder-structure-and-docker-configuration-files)
+      - [Build and Run](#build-and-run)
+    - [7.2 Deploying the Dockerized Application: CircleCI](#72-deploying-the-dockerized-application-circleci)
+    - [7.3 Deploying the Dockerized Application to Heroku](#73-deploying-the-dockerized-application-to-heroku)
+    - [7.4 Further Reading](#74-further-reading)
+  - [8. Differential Tests](#8-differential-tests)
+  - [9. Deploying to IaaS (AWS ECS)](#9-deploying-to-iaas-aws-ecs)
 
-1. Overview of Model Deployment
-   - 1.1 Reproducibility
-     - Data Ingestion
-     - Feature Engineering
-     - Training
-     - Model Deployment / Integration of the Model to the Production Environment
-     - Streamlining the Model Deployment with Open-Source Libraries
-   - 1.2 Reading Articles
-2. Machine Learning System Architecture
-   - 2.1 Challenges of ML Systems
-     - Some Reading Links
-   - 2.2 Key Principles for ML Systems
-   - 2.3 Machine Learning System Architecture Approaches
-   - 2.4 Architecture Breakdown
-3. Research Environment: Developing a Machine Learning Model
-   - 3.1 Overview of Building the Pipeline
-   - 3.2 Feature Engineering
-     - 3.2.1 Feature Engineering Techniques
-   - 3.3 Feature Selection
-   - 3.4 Model Training and Evaluation
-   - 3.5 Notebooks: Parts 1 & 2 - First Version of the Research/Development Environment
-     - Part 1: First Version of the Research Environment
-       - `01-machine-learning-pipeline-data-analysis.ipynb`
-       - `02-machine-learning-pipeline-feature-engineering.ipynb`
-       - `03-machine-learning-pipeline-feature-selection.ipynb`
-       - `04-machine-learning-pipeline-model-training.ipynb`
-       - `05-machine-learning-pPipeline-scoring-new-data.ipynb`
-     - Part 2: Assignment - Research Environment of the Titanic Dataset
-       - `01-predicting-survival-titanic.ipynb`
-   - 3.6 Streamlining the Research Environment
-     - Scikit-Learn Transformers
-     - Other Important Libraries for Transformations
-   - 3.7 Feature Engineering with In-House Software: Custom Transformation Classes
-     - Example 1: `MeanImputer` class
-     - Example 2: Inheritance
-     - Example 3: Inheritance with Scikit-Learn
-   - 3.8 Notebooks, Continued: Parts 3 & 4 - Reasearch/Development Environment Streamlined with Open-Source Libraries, In-House Software, and Pipelines
-     - Part 3: Feature Engineering with Open-Source Libraries
-       - `06-feature-engineering-with-open-source.ipynb`
-     - Part 4: Feature Engineering with Open-Source Libraries, In-House Software, and Pipelines
-       - `07-feature-engineering-pipeline.ipynb`
-       - `preprocessors.py`
-   - 3.9 Feature Selection: Should It Be Part of the Feature Engineering `Pipeline`?
-   - 3.10 Notebooks, Continued: Parts 5 & 6 - Reasearch/Development Environment: Final Machine Learning Pipeline
-     - Part 5: Final Machine Learning Pipeline
-       - `08-final-machine-learning-pipeline.ipynb`
-     - Part 6: Assignment - Research Environment Pipeline of the Titanic Dataset
-       - `02-titanic-survival-pipeline.ipynb`
-4. Packaging the Model for Production
-  - 4.1 Structuring the Production Code
-    - 1. Conventions
-    - 2. Packaging Mandatory Files
-    - 3. Software Engineering Best Practices
-  - 4.2 Package Requirement Files
-    - How to get `requirements.txt`
-  - 4.3 Working with `tox`
-    - Comments on the syntax of the `tox.ini` file
-    - Issues with tox
-  - 4.4 Configuration
-  - 4.5 The Model Training Script & Pipeline
-  - 4.6 Pytest
-    - Installation and Basic Usage
-    - Pytest Fixtures
-    - Pytest Parametrization
-  - 4.7 Feature Engineering Code: Testing
-  - 4.8 Making Predictions with the Package
-  - 4.9 Making Predictions with the Package: Testing
-  - 4.10 Building the Package
-    - Building the Package
-  - 4.11 Tooling
-  - 4.12 Further Readings
-  - 4.13 Assignment: Titanic Dataset
-5. Serving and Deploying the Model via REST API - FastAPI
-  - 5.1 Running the API Locally
-  - 5.2 Architecture of the API
-  - 5.3 FastAPI: Intoduction
-    - Installation
-    - How to Use It
-  - 5.4 Folder Structure & API Endpoint Definitions
-    - Requirements
-    - `app/`
-    - Testing: `app/tests/`
-  - 5.5 Using Schemas in the API
-  - 5.6 Logging
-  - 5.7 The Uvicorn Web Server
-  - 5.8 Heroku and Platform as a Service (PaaS)
-  - 5.9 Deploying the Application to Heroku
-  - 5.10 Personal Notes
-  - 5.11 Further Readings
-6. Continuous Integration and Deployment Pipelines - Circle CI
-7. Deploying the ML API with Containers
-8. Differential Tests
-9. Deploying to IaaS (AWS ECS)
 
 ## 1. Overview of Model Deployment
 
