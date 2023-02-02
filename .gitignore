@@ -14,6 +14,7 @@ Troubleshooting.pdf
 docker_*
 bak
 aws_deployment_notes
+.vscode
 
 # C extensions
 *.so
