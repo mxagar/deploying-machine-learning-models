@@ -22,7 +22,8 @@ The guide or notes for my future self done after following the course are in: `.
 5. Serving and Deploying the Model via REST API - FastAPI
 6. Continuous Integration and Deployment Pipelines - CicleCI
 7. Deploying the ML API with Containers
-8. Deploying to IaaS (AWS ECS)
+8. Differential Tests
+9. Deploying to IaaS (AWS ECS)
 
 ## How to Start?
 
